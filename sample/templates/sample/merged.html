@@ -1,0 +1,143 @@
+{% extends "base_merged.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<section>
+	<div class="container" id = "start">
+		<!-- Title -->
+		<div class="row mb-4">
+			<div class="col-lg-8 mx-auto text-center">
+				<h2 class="fs-1">Most Popular WebStories</h2>
+			</div>
+		</div>
+
+
+		<!-- Tabs START -->
+		<ul class="nav nav-pills nav-pills-bg-soft justify-content-sm-center mb-4 px-3" id="course-pills-tab" role="tablist">
+
+			<a href={% url 'home' %}#start>	
+				<li class="nav-item me-2 me-sm-5">
+			{% if current_category == 'Mixed' %}
+					<button class="nav-link mb-2 mb-md-0 active"> Mixed </button>
+			{% else %}
+					<button class="nav-link mb-2 mb-md-0"> Mixed </button>
+			{% endif %}
+			</li></a>
+
+
+			{% for category in categories %}
+			<a href="{% url 'view_category' category%}">			
+				<li class="nav-item me-2 me-sm-5">
+
+			{% if category == current_category %}
+					<button class="nav-link mb-2 mb-md-0 active">
+			{% else %}
+					<button class="nav-link mb-2 mb-md-0">
+			{% endif %}
+						{{ category }}
+					</button>
+				</li>
+			</a> 
+			{% endfor %}
+		</ul>
+		<!-- Tabs END -->
+
+
+		<!-- Tabs content START -->
+		<div class="tab-content" id="course-pills-tabContent">
+			<!-- Content START -->
+			<div class="tab-pane fade show active" id="course-pills-tabs-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
+				<div  class="row g-4">
+                <!-- Card item START -->
+                {% for article in articles  %}
+				
+				{% if article.sub_slides %}
+                <!-- Card item START -->
+				
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="card shadow h-100">
+
+                        <!-- Image -->
+                        <a href={% url 'view_slides' article.title|slugify%}>
+                            {% if article.a_cover %}
+                            <img src="{{ article.a_cover.url }}" class="souq_img card-img-top">
+                            {% else %}
+                            <img src="{% static 'default.jpg' %}" class="souq_img card-img-top">
+                            {% endif %}
+                        </a>
+						<div class="souqamp-storyCnt"><div class="souqampSldsCnt">
+							<span></span>
+							{% for i in 'x'|rjust:article.sub_slides.count %}
+								<span></span>
+							{% endfor %}
+							<span></span>
+						</div></div>
+                        <div class="card-body pb-0">
+                            <!-- Title -->
+                            <h6 class="card-title fw-normal"><a href={% url 'view_slides'  article.title|slugify%}>
+                                {{ article.title }} </a></h6>
+                        </div>
+                        <!-- Card footer -->
+                     	<div class="card-footer pt-0 pb-3">
+							 <br>
+                            {% comment %} <hr>
+                            <div class="d-flex justify-content-end">
+                                <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>{{ article.date|date:"M d, Y"}}</span>
+                            </div> {% endcomment %}
+                        </div> 
+                    </div>
+                </div>
+                <!-- Card item END -->
+
+				{% endif %}
+{% endfor %}
+
+<!-- PAGINATION NAVIGATOR START -->
+ <nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+		{% if articles.has_previous %}
+		<li class="page-item">
+		<a class="page-link" href="?page={{ articles.previous_page_number}}#course-pills-tabContent" tabindex="-1"><<</a>
+		{% else %} 
+		<li class="page-item disabled">
+		<a class="page-link" href="#" tabindex="-1"><<</a>
+		{% endif %}
+	  </li>
+
+	  {% for n in articles.paginator.page_range %}
+	 	{% if articles.number == n %}
+			<li class="page-item active">
+				<a class="page-link" href="#course-pills-tabContent">{{n}}</a>
+			</li>
+		{% elif n > articles.number|add:'-3' and n < articles.number|add:'3' %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{n}}#course-pills-tabContent">{{n}}</a>
+			</li>
+		{% endif %} 
+	  {% endfor %}
+
+	  {% if articles.has_next %}
+	  	<li class="page-item">
+		<a class="page-link" href="?page={{ articles.next_page_number}}#course-pills-tabContent">>></a>
+		{% else %} 
+		<li class="page-item disabled">
+		<a class="page-link" href="#">>></a>
+		{% endif %}
+	  </li>
+	</ul>
+  </nav>
+
+<!-- PAGINATION NAVIGATOR END -->
+
+				</div> 
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+
+{% endblock content %}

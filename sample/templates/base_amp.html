@@ -1,0 +1,43 @@
+<!doctype html>
+<html ⚡>
+  <head>
+
+    <meta charset="utf-8">
+    {% block head %}
+    {% endblock head %}
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"></script>
+    <script async custom-element="amp-video"
+        src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+
+    {% comment %} #FONTS {% endcomment %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Amaranth&family=Architects+Daughter&family=Courgette&family=El+Messiri&family=Handlee&family=IBM+Plex+Sans+Thai+Looped&family=IM+Fell+English+SC&family=Itim&family=Kalam&family=Kaushan+Script&family=PT+Mono&family=Quintessential&family=Roboto+Condensed:ital@1&family=Roboto+Mono&family=Roboto:ital@1&family=Rock+Salt&family=Ruda&family=Source+Serif+4:ital@1&family=Special+Elite&family=Supermercado+One&family=Work+Sans&display=swap" rel="stylesheet">
+
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400" rel="stylesheet">
+    <script
+      async
+      custom-element="amp-story"
+      src="https://cdn.ampproject.org/v0/amp-story-1.0.js"
+    ></script>        
+  </head>
+
+
+  <body>
+
+   {% block content %}
+   {% endblock %}
+   
+  </body>
+
+  {% block script %}
+  {% endblock script %}
+
+</html>

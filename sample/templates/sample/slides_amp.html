@@ -1,0 +1,218 @@
+{% extends "base_amp.html" %}
+{% load static %}
+{% load index %}
+
+{% block head %}
+    <meta name='title' content='{{ article.title }}'>
+    <meta name='description' content='Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, non.'>
+    <meta name='keywords' content='{{ article.title }}'>
+    <meta name='author' content='John'>
+    <title>{{ article.title }}</title>
+    <link rel="canonical" href={% url 'view_slides' article.title|slugify%}>
+    <script async custom-element='amp-analytics' src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+
+    <style amp-custom>
+        .container{
+            margin-top: 20px;
+        }
+        .story-card{
+            box-shadow: 3px 5px 10px rgb(54, 53, 53);
+            width: 270px;
+            height: 470px;
+            margin-top: 30px
+        }
+        h2,h6{
+            max-height: 98%;
+        }
+        h1{
+            line-height: 45px;
+        }
+        .card-text, .story_date{
+            margin-left: 13px;
+            text-align: center;
+        }
+        .ampSldsCnt {
+            width: 100%;
+            display: flex;
+            position: relative;
+            flex-direction: row;
+        }
+        .ampSldsCnt span {
+            background-color: grey;
+            display: block;
+            position: relative;
+            height: 2px;
+            width: 100%;
+            margin-right: 3px;
+            border-radius: 2px;
+        }
+        .story_date{
+            position: absolute;
+            bottom: 9px;
+        }
+        span{
+            background-color: white;
+            color: #0B134B;
+            letter-spacing: 3px;
+        }
+        amp-story-page:first-child{
+            font-family: {{ fonts.6 }};
+        }
+        amp-story-page:first-child h1 span{
+            margin-bottom: 30px ;
+        }
+        #End{
+            font-family: {{ fonts.9 }};
+        }
+        /* amp-img{
+            filter: hue-rotate({{hue}}deg);
+        } */
+        h1 span, .tnks{
+            color: #0B134B;
+            line-height: 30px;
+        }
+        .f-p span{
+            color: black;
+            background-color: white;
+            line-height: 30px;
+        }
+        a, h3{
+            color: white;
+            background-color: black;
+            line-height: 30px;
+            text-decoration: none;
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+
+<!-- <amp-script script="animation_script"> -->
+
+<amp-story standalone
+
+title="{{ article.title }}"
+publisher="MANTIC LABS"
+publisher-logo-src="assets/AMP-Brand-White-Icon.svg"
+poster-portrait-src="assets/cover.jpg">
+<amp-story-page id="cover" auto-advance-after='4s'>
+<amp-story-grid-layer template="fill">
+    {% if article.a_cover %}
+    <amp-img src="{{ article.a_cover.url }}"
+    width="720" height="1280"
+    layout="responsive">
+    </amp-img>
+    {% else %}
+    <amp-img src="{% static 'default.jpg' %}"
+    width="720" height="1280"
+    layout="responsive">
+    </amp-img>
+    {% endif %}
+</amp-story-grid-layer>
+<amp-story-grid-layer template="vertical">
+  <h1 id="kkk" animate-in="whoosh-in-right"><span>{{ article.title }}</span></h1>
+  <!-- <p class="f-p"><span>By MANTIC LABS software solutions pvt ltd</span></p> -->
+</amp-story-grid-layer>
+</amp-story-page>
+
+{% for slide in slides %}
+
+{% if slide.is_p %}
+<amp-story-page id="page-{{ forloop.counter }}"  auto-advance-after='12s' style="font-family: {{ fonts|index:forloop.counter0 }};">
+{% else %}
+<amp-story-page id="page-{{ forloop.counter }}"  auto-advance-after='8s' style="font-family: {{ fonts|index:forloop.counter0 }};">
+{% endif %}
+<amp-story-grid-layer template="fill">
+    {% if slide.s_cover %}
+        <amp-img src="{{ slide.s_cover.url }}" 
+        width="720" height="1600" animate-in="zoom-out" animate-in-duration='5s'
+        layout="responsive">
+        </amp-img>
+    {% else %}
+        <amp-img src="{% static 'default.jpg' %}" 
+        width="720" height="1600" animate-in="zoom-out" animate-in-duration='5s'
+        layout="responsive">
+        </amp-img>
+    {% endif %}
+</amp-story-grid-layer>
+{% if slide.is_p %}
+    <amp-story-grid-layer template="thirds" >
+        <h5 style="line-height:25px; font-size:1.02em;" animate-in="whoosh-in-left"><span>{{ slide.content }}</span></h5>
+{% else %}
+    <amp-story-grid-layer  template="thirds" >
+        <h2 style="line-height:50px" animate-in="whoosh-in-right"><span>{{ slide.content }}</span></h2>
+{% endif %}
+
+</amp-story-grid-layer>
+</amp-story-page>
+
+{% endfor %}
+
+{% if nextArticle %}
+<amp-story-page id="End-page">
+    <amp-story-grid-layer template="fill">
+    {% if nextArticle.a_cover %}
+        <amp-img src="{{ nextArticle.a_cover.url }}" 
+        width="720" height="1600" animate-in="pulse" animate-in-duration='2s'
+        layout="responsive">
+        </amp-img>
+    {% else %}
+        <amp-img src="{% static 'default.jpg' %}" 
+        width="720" height="1600" animate-in="pulse" animate-in-duration='2s'
+        layout="responsive">
+        </amp-img>
+    {% endif %}
+    </amp-story-grid-layer>
+        <amp-story-grid-layer  template="thirds">
+            <h1 grid-area="upper-third" animate-in="whoosh-in-left" ><span>Thanks for viewing!</span></h1>
+            <div  grid-area="lower-third" animate-in="whoosh-in-right" animate-in-duration='3s'><h4><span>View our next story</span></h4>
+                <a href= {% url 'view_slides' nextArticle.title|slugify%} >
+                    {{nextArticle.title}}
+                </a>
+            </div>
+
+    </amp-story-grid-layer>
+    </amp-story-page>
+{% endif %}
+
+<amp-analytics type="gtag" data-credentials="include">
+    <script type="application/json">
+      {
+        "vars": {
+          "gtag_id": "UA-221872419-1",
+          "config": {
+            "UA-221872419-1": {
+              "groups": "default"
+            }
+          }
+        },
+        "triggers": {
+          "storyProgress": {
+            "on": "story-page-visible",
+            "vars": {
+              "event_name": "custom",
+              "event_action": "story_progress",
+              "event_category": "${title}",
+              "event_label": "${storyPageId}",
+              "send_to": ["UA-221872419-1"]
+            }
+          },
+          "storyEnd": {
+            "on": "story-last-page-visible",
+            "vars": {
+              "event_name": "custom",
+              "event_action": "story_complete",
+              "event_category": "${title}",
+              "send_to": ["UA-221872419-1"]
+            }
+          }
+        }
+      }
+    </script>
+   </amp-analytics>
+
+<!-- Bookend -->
+<amp-story-bookend src="bookend.json" layout="nodisplay"></amp-story-bookend>
+</amp-story>
+
+{% endblock %}
