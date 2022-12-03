@@ -6,17 +6,17 @@
 </hr></br>
 <h3>When it was deployed, here are the google analytics results for Google webstories posted by this site within few days of deployment.</h3>
 </br> 
-<img src="https://user-images.githubusercontent.com/84411432/204052175-0d30d419-8b97-4944-9026-7be66474218b.jpg" style=" width:900px ; height:500px; margin-bottom:100px">
+<img src="https://user-images.githubusercontent.com/84411432/204052175-0d30d419-8b97-4944-9026-7be66474218b.jpg" style=" margin-bottom:100px">
 </br>
 
 <h3>Here is a sample for how website looked like.</h3>
 </br> 
-<img src="https://user-images.githubusercontent.com/84411432/204052187-7678dc1f-37bc-4d38-885a-f18833715d8a.png" style=" width:900px ; height:500px; margin-bottom:100px">
+<img src="https://user-images.githubusercontent.com/84411432/204052187-7678dc1f-37bc-4d38-885a-f18833715d8a.png" style=" margin-bottom:100px">
 </br>
 
 <h3>AMP html Google webstories</h3>
 </br> 
-<img src="https://user-images.githubusercontent.com/84411432/204052195-a3556b20-cceb-4d44-8a07-ca70cf323c14.png" style=" width:900px ; height:500px; margin-bottom:100px">
+<img src="https://user-images.githubusercontent.com/84411432/204052195-a3556b20-cceb-4d44-8a07-ca70cf323c14.png" style=" margin-bottom:100px">
 </br>
 
 
